@@ -160,8 +160,8 @@ public class Checking extends Account {
         if (super.isClosed()) {
             return;
         }
-        super.balance -= this.fee();
         super.balance += this.monthlyInterest();
+        super.balance -= super.rounder(this.fee());
         super.balance = super.rounder(super.balance);
     }
 
@@ -174,7 +174,6 @@ public class Checking extends Account {
         if (super.isClosed()) {
             return 0.00;
         }
-
         double monthlyInterest = this.balance * this.rate;
         return super.rounder(monthlyInterest);
     }

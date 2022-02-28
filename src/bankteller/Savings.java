@@ -9,11 +9,20 @@ import java.text.DecimalFormat;
 public class Savings extends Account {
     private final String TYPE = "Savings";
     protected double fee = 6;
-    protected double rate = .03 / 12;
+    protected double rate = .003 / 12;
 
 
     protected boolean isLoyal;
 
+    /**
+     *
+     * @param amount
+     * @return
+     */
+    @Override
+    public double rounder(double amount){
+        return super.rounder(amount);
+    }
     /**
      * Instantiates a new Savings.
      *
@@ -28,7 +37,7 @@ public class Savings extends Account {
             this.isLoyal = true;
         }
         if (this.isLoyal) {
-            this.rate = 0.045 / 12;
+            this.rate = 0.0045 / 12;
         }
 
 
@@ -54,9 +63,10 @@ public class Savings extends Account {
     public double fee() {
         if (super.balance >= 300) {
             this.fee = 0;
+            return 0;
         }
         this.fee = 6;
-        return this.fee;
+        return 6;
     }
 
     /**
@@ -139,8 +149,8 @@ public class Savings extends Account {
         if (super.isClosed()) {
             return;
         }
-        super.balance -= this.fee();
         super.balance += this.monthlyInterest();
+        super.balance -= this.fee();
         super.balance = super.rounder(super.balance);
     }
 
@@ -174,6 +184,8 @@ public class Savings extends Account {
      */
     @Override
     public double monthlyInterest() {
-        return super.rounder(this.balance * this.rate);
+
+        double monthlyInterest = this.balance * this.rate;
+        return super.rounder(monthlyInterest);
     }
 }

@@ -10,6 +10,7 @@ public class main {
      * @param args the input arguments
      */
     public static void main(String[] args) {
+    /*
         Profile holder = new Profile("Anshul", "prasad", "06/18/2001");
 
         Profile holder2 = new Profile("April", "March", "1/15/1987");
@@ -24,8 +25,9 @@ public class main {
         test.open(account5);
         test.open(account2);
         test.print();
-
-
+ */
+   Account a = new Checking(new Profile("Anshul","Prasad","01/31/2001"),2200.0);
+   System.out.println(a.rounder(1.47+2200.0));
 
     }
 }

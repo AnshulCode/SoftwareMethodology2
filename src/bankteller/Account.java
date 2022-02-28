@@ -26,7 +26,6 @@ public abstract class Account {
      */
     public void open(double amount){
         if(closed) {
-
             this.balance = 0.0;
             this.balance = this.rounder(amount);
             closed = false;
@@ -39,7 +38,7 @@ public abstract class Account {
      * @return the balance
      */
     public double getBalance() {
-        return this.balance;
+        return this.rounder(this.balance);
     }
 
     /**
@@ -138,7 +137,7 @@ public abstract class Account {
         if (amount < 0) {
             return;
         }
-        this.balance += amount;
+        this.balance += this.rounder(amount);
         this.balance = this.rounder(this.balance);
     }
 

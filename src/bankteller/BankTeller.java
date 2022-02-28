@@ -10,14 +10,7 @@ import java.util.StringTokenizer;
  */
 public class BankTeller {
 
-    /**
-     * The Scan.
-     */
-    public Scanner scan = new Scanner(System.in);
-    /**
-     * The Input.
-     */
-    public String input = "";
+
     /**
      * The Max len of bank cmd.
      */
@@ -37,7 +30,12 @@ public class BankTeller {
         while (!input.equals("Q")) {
             input = scan.nextLine();
             input = input.trim();
-            this.inputProcessor(input, db);
+            if(!input.isEmpty()){
+                this.inputProcessor(input, db);
+            }else{
+                System.out.println("Invalid command!");
+            }
+
 
         }
     }
@@ -110,7 +108,7 @@ public class BankTeller {
         while (whatsLeft.hasMoreTokens()) {
             String tok = whatsLeft.nextToken().trim();
             if (this.isPrintCmd(tok)) {
-                this.switchBoard(cmd, db);
+                this.switchBoard(cmd.trim(), db);
                 this.switchBoard(tok.trim(), db);
                 ifTerminatedEarly = true;
                 break;
@@ -169,7 +167,7 @@ public class BankTeller {
             Date date = new Date(dob);
             Date curr = new Date();
             if (!date.isValid() || date.compareTo(curr) >= 0) {
-                System.out.println("Invalid date of birth.");
+                System.out.println("Date of birth invalid.");
                 return null;
             }
             Profile pro = new Profile(fname, lname, dob);
@@ -207,7 +205,7 @@ public class BankTeller {
         Date date = new Date(dob);
         Date curr = new Date();
         if (!date.isValid() || date.compareTo(curr) >= 0) {
-            System.out.println("Invalid date of birth.");
+            System.out.println("Date of birth invalid.");
             return null;
         }
         Profile pro = new Profile(fname, lname, dob);
@@ -241,7 +239,7 @@ public class BankTeller {
         Date date = new Date(dob);
         Date curr = new Date();
         if (!date.isValid() || date.compareTo(curr) >= 0) {
-            System.out.println("Invalid date of birth.");
+            System.out.println("Date of birth invalid.");
             return null;
         }
         Profile pro = new Profile(fname, lname, dob);
@@ -255,9 +253,7 @@ public class BankTeller {
             return null;
         }
         try {
-            System.out.println("Money in savings: " + amount);
             double money = Double.parseDouble(amount);
-
             if (money <= 0) {
                 System.out.println(opperation + " " + "cannot be 0 or negative.");
                 return null;
@@ -285,7 +281,7 @@ public class BankTeller {
         Date date = new Date(dob);
         Date curr = new Date();
         if (!date.isValid() || date.compareTo(curr) >= 0) {
-            System.out.println("Invalid date of birth.");
+            System.out.println("Date of birth invalid.");
             return null;
         }
         Profile pro = new Profile(fname, lname, dob);
@@ -313,7 +309,7 @@ public class BankTeller {
     public void isOpened(Account open, AccountDatabase db) {
         //System.out.println("Accout: holder" + open.getHolder().toString());
         if (open != null) {
-            if (open.getType().equals("Money Market Savings")) {
+            if (open.getType().equals("Money Market")) {
                 if (open.getBalance() < 2500.00) {
                     System.out.println("Minimum of $2500 to open a MoneyMarket account.");
                     return;

@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 public class MoneyMarketAccount extends Savings{
 
 
-    private final String TYPE = "Money Market Savings";
+    private final String TYPE = "Money Market";
 
     private boolean execessWithdrawl = false;
     private int numWithdrawls = 0;
@@ -26,11 +26,11 @@ public class MoneyMarketAccount extends Savings{
 
         if (super.balance < 2500) {
             super.isLoyal = false;
-            super.rate = .08 / 12;
+            super.rate = .008 / 12;
         } else {
             super.isLoyal = true;
         }
-        super.rate = .095 / 12;
+        super.rate = .0095 / 12;
         this.fee();
     }
 
@@ -66,13 +66,14 @@ public class MoneyMarketAccount extends Savings{
 
         if (super.balance >= 2500) {
             super.fee = 0;
+            return 0;
         }
 
         if (this.execessWithdrawl) {
             super.fee = 10;
             return 10;
         }
-
+        super.fee = 10;
         return super.fee;
     }
 
@@ -80,11 +81,13 @@ public class MoneyMarketAccount extends Savings{
      * updates loyalty status and adjust fees and raters accordingly
      */
     private void updateLoyalty() {
+        System.out.println("Balance: "+ super.balance);
         if (super.balance < 2500) {
             super.isLoyal = false;
-            super.rate = .08 / 12;
+            super.rate = .008 / 12;
             return;
         }
+        super.rate = 0.0095/12;
         super.isLoyal = true;
     }
 
@@ -119,17 +122,17 @@ public class MoneyMarketAccount extends Savings{
 
 
 
-
-        String balenceRounded = decimalFormat.format(super.rounder(super.getBalance()));
-
+        super.balance = super.rounder(super.balance);
+        String balenceRounded = decimalFormat.format(super.balance);
+        this.updateLoyalty();
         if (!super.closed) {
-            if (this.isLoyal)
-                return this.TYPE + "::" + super.holder.toString() + "::Balance $" +
+            if (super.isLoyal)
+                return this.TYPE+" Savings" + "::" + super.holder.toString() + "::Balance $" +
                         balenceRounded + "::Loyal::withdrawl: " + Integer.toString(this.numWithdrawls);
-            return this.TYPE + "::" + super.holder.toString() + "::Balance $" +
-                    balenceRounded + ":Loyal:withdrawl: " + Integer.toString(numWithdrawls);
+            return this.TYPE+" Savings" + "::" + super.holder.toString() + "::Balance $" +
+                    balenceRounded + "::withdrawl: " + Integer.toString(numWithdrawls);
         }
-        return this.TYPE + "::" + super.holder.toString() + "::Balance $" + balenceRounded + "::CLOSED"
+        return this.TYPE+" Savings" + "::" + super.holder.toString() + "::Balance $" + balenceRounded + "::CLOSED"
                 + "::withdrawl: " + Integer.toString(this.numWithdrawls);
     }
 
@@ -140,6 +143,7 @@ public class MoneyMarketAccount extends Savings{
      */
     @Override
     public boolean isSufficentFunds(double amount) {
+        this.updateLoyalty();
         return super.isSufficentFunds(amount);
     }
 
@@ -160,6 +164,7 @@ public class MoneyMarketAccount extends Savings{
     @Override
     public void withdraw(double amount) {
         double prev_balence = super.getBalance();
+        this.updateLoyalty();
         super.withdraw(amount);
         if (prev_balence != super.getBalance()) {
             this.numWithdrawls++;
@@ -179,6 +184,7 @@ public class MoneyMarketAccount extends Savings{
      */
     @Override
     public String interestPreview() {
+        this.updateLoyalty();
         return super.interestPreview();
     }
 
@@ -187,7 +193,9 @@ public class MoneyMarketAccount extends Savings{
      */
     @Override
     public void setMonthlyInterest() {
-      super.setMonthlyInterest();
+        this.updateLoyalty();
+        super.setMonthlyInterest();
+
     }
 
     /**
@@ -196,6 +204,6 @@ public class MoneyMarketAccount extends Savings{
      */
     @Override
     public double monthlyInterest() {
-        return super.monthlyInterest();
+      return super.monthlyInterest();
     }
 }
