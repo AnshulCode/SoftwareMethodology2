@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 
 /**
  * The type College checking account.
+ * @author Anshul Prasad, Alexander Reyes
  */
 public class CollegeCheckingAccount extends Checking {
 
@@ -54,6 +55,7 @@ public class CollegeCheckingAccount extends Checking {
     public double fee() {
         return 0;
     }
+
     /**
      * returns the class type for a College checking Account
      * @return
@@ -64,11 +66,15 @@ public class CollegeCheckingAccount extends Checking {
     }
 
 
-
+    /**
+     * opens account inherited from Account
+     * @param amount the initial deposit
+     */
     @Override
     public void open(double amount) {
         super.open(amount);
     }
+
     /**
      * turns the CollageCheckingAccount into readable string format
      * Implemented from Accounts class
@@ -181,7 +187,7 @@ public class CollegeCheckingAccount extends Checking {
     }
 
     /**
-     * Updates the balance with the monthly interest
+     * Updates the balance with the monthly interest. Inherited by Account
      */
     @Override
     public void setMonthlyInterest() {

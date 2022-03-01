@@ -3,8 +3,6 @@ package bankteller.Test;
 import bankteller.Date;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * The type Date test.
  */
@@ -105,12 +103,29 @@ class DateTest {
     }
 
     /**
-     * Day greater than 31 for Apr,Jul,
+     * Day greater than 31 for Apr , Should fail
      */
     @Test
     void isValid8() {
-
+        Date date8 = new Date("4/31/2001");
+        if(date8.isValid()) {
+            System.out.println("Test case Passed");
+        }else{
+            System.out.println("Test case Failed");
+        }
     }
 
+    /**
+     * Day at 31 correct
+     */
+    @Test
+    void isValid9(){
+        Date date9 = new Date("4/31/2001");
+        if(date9.isValid()) {
+            System.out.println("Test case Passed");
+        }else{
+            System.out.println("Test case Failed");
+        }
+    }
 
 }

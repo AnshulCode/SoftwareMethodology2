@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 /**
  * The type Money market account.
+ * @author Anshul Prasad, Alexander Reyes
  */
 public class MoneyMarketAccount extends Savings{
 
@@ -150,17 +151,20 @@ public class MoneyMarketAccount extends Savings{
     }
 
     /**
-     *
+     *AInherited from Savings and Account
      * @param obj
      * @return
      */
-    @Override
+
+   /* @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
 
+    */
+
     /**
-     *
+     * withdraw from MoneyMarket Account Inherited from Savings
      * @param amount
      */
     @Override
@@ -180,23 +184,16 @@ public class MoneyMarketAccount extends Savings{
     }
 
     /**
-     *
+     *Gives interest preview for printFeeAndInterst method
      * @return
      */
     @Override
     public String interestPreview() {
-        DecimalFormat decimalFormat = new DecimalFormat("##,###,###,###.##");
-
-        decimalFormat.setMaximumFractionDigits(2);
-        decimalFormat.setMinimumFractionDigits(2);
-        String acct = this.toString();
-        super.fee = this.fee();
-        return acct + "::fee $" + decimalFormat.format(super.fee) + "::monthly interest $" +
-                decimalFormat.format(this.monthlyInterest());
+        return super.interestPreview();
     }
 
     /**
-     *
+     * sets balance with Interest, Inherited from Savings
      */
     @Override
     public void setMonthlyInterest() {
@@ -206,11 +203,12 @@ public class MoneyMarketAccount extends Savings{
     }
 
     /**
-     *
+     *Gets monthly interest Inherited from Savings
      * @return
      */
     @Override
     public double monthlyInterest() {
+        this.updateLoyalty();
       return super.monthlyInterest();
     }
 }

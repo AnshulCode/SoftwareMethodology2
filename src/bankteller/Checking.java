@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 /**
  * The type Checking.
+ * @author Anshul Prasad, Alexander Reyes
  */
 public class Checking extends Account {
     /**

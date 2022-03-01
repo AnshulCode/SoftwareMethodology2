@@ -2,6 +2,7 @@ package bankteller;
 
 /**
  * The type Account database.
+ * @author Anshul Prasad, Alexander Reyes
  */
 public class AccountDatabase {
     private Account[] accounts;
@@ -105,8 +106,15 @@ public class AccountDatabase {
         if (this.find(account) == -1) {
             return false;
         }
-        this.accounts[this.find(account)].close();
-        return true;
+        for(int i = 0; i<this.numAcct; i++ ){
+            if(this.accounts[i].equals(account) &&
+                    this.accounts[i].getType().equals(account.getType())){
+                this.accounts[i].close();
+                return true;
+            }
+
+        }
+        return false;
     }
 
     /**

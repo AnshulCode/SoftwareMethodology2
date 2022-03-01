@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 /**
  * The type Savings.
+ * @author Anshul Prasad, Alexander Reyes
  */
 public class Savings extends Account {
     private final String TYPE = "Savings";
@@ -15,7 +16,7 @@ public class Savings extends Account {
     protected boolean isLoyal;
 
     /**
-     *
+     *Rounds decimals to Correct place, Inherited from Account
      * @param amount
      * @return
      */
@@ -49,14 +50,19 @@ public class Savings extends Account {
     public Savings(){
 
     }
+
+    /**
+     * opens account inherited from Account
+     * @param amount the initial deposit
+     */
     @Override
     public void open(double amount) {
         super.open(amount);
     }
 
     /**
-     *
-     * @return
+     * Gets fee, inherited from Account,implemented here
+     * @return fee
      */
 
     @Override
@@ -70,7 +76,7 @@ public class Savings extends Account {
     }
 
     /**
-     *
+     *Closes account, inherited from Account
      */
     @Override
     public void close() {
@@ -78,7 +84,7 @@ public class Savings extends Account {
     }
 
     /**
-     *
+     *Gets Type of Account, inherited from account, implemented here
      * @return
      */
     @Override
@@ -87,7 +93,7 @@ public class Savings extends Account {
     }
 
     /**
-     *
+     *Coverts Account to readable formant, Inherited from Account
      * @return
      */
     @Override
@@ -96,7 +102,7 @@ public class Savings extends Account {
     }
 
     /**
-     *
+     *Checks if Accounts are equal, Inherited from Account
      * @param obj
      * @return
      */
@@ -106,8 +112,8 @@ public class Savings extends Account {
     }
 
     /**
-     *
-     * @param amount the amount
+     * withdraws from balance, inherited from Account
+     * @param amount the amount to withdraw
      */
 
     @Override
@@ -116,7 +122,7 @@ public class Savings extends Account {
     }
 
     /**
-     *
+     *Gives the interest preview for printFeeAndInterest method in AccountDatabase
      * @return
      */
     @Override
@@ -131,8 +137,8 @@ public class Savings extends Account {
     }
 
     /**
-     *
-     * @param amount the amount
+     * checks is there is enough to withdraw, inherited from Account
+     * @param amount the amount to subtract
      * @return
      */
     @Override
@@ -141,7 +147,7 @@ public class Savings extends Account {
     }
 
     /**
-     *
+     * Updates balance with interest
      */
 
     @Override
@@ -155,8 +161,8 @@ public class Savings extends Account {
     }
 
     /**
-     *
-     * @return
+     * Gives the format for toString method
+     * @return String for toString
      */
     @Override
     public String printFormat() {
@@ -173,13 +179,13 @@ public class Savings extends Account {
             return this.TYPE + "::" + super.holder.toString() + "::Balance $" + rateRounded;
         }
         if (super.closed) {
-            return this.TYPE + "::" + super.holder.toString() + "::Balance $" + rateRounded+"::Loyal" + "::CLOSED";
+            return this.TYPE + "::" + super.holder.toString() + "::Balance $" + rateRounded+ "::CLOSED";
         }
         return this.TYPE + "::" + super.holder.toString() + "::Balance $" + rateRounded+"::Loyal";
     }
 
     /**
-     *
+     * gets monthly interest, Inherited from Account
      * @return
      */
     @Override

@@ -3,6 +3,7 @@ package bankteller;
 
 /**
  * The type Account.
+ * @author Anshul Prasad, Alexander Reyes
  */
 public abstract class Account {
 

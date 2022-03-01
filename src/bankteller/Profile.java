@@ -2,6 +2,7 @@ package bankteller;
 
 /**
  * The type Profile.
+ * @author Anshul Prasad, Alexander Reyes
  */
 public class Profile {
     private String fname;
@@ -26,6 +27,11 @@ public class Profile {
         return this.fname + " " + this.lname + " " + this.dob.toString();
     }
 
+    /**
+     * Check is Profiles are equal
+     * @param o to compare
+     * @return True is equal, False otherwise
+     */
     @Override
     public boolean equals(Object o) {
         Profile compare = (Profile) o;
@@ -35,7 +41,7 @@ public class Profile {
     }
 
     /**
-     * Gets .
+     * Gets First name
      *
      * @return the
      */
@@ -44,7 +50,7 @@ public class Profile {
     }
 
     /**
-     * Gets lname.
+     * Gets Last name
      *
      * @return the lname
      */
