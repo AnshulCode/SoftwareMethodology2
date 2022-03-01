@@ -120,11 +120,10 @@ public abstract class Account {
      * @param amount the amount
      */
     public void withdraw(double amount) {
-        if (this.balance - amount <= 0) {
+        if (!this.isSufficentFunds(amount)) {
             return;
         }
         this.balance -= amount;
-        System.out.println("Balence: "+Double.toString(this.balance));
         this.balance = this.rounder(this.balance);
     }
 

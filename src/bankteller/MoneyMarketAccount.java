@@ -64,17 +64,18 @@ public class MoneyMarketAccount extends Savings{
     @Override
     public double fee() {
 
+        if (this.execessWithdrawl) {
+            super.fee = 10;
+            return 10;
+        }
+
         if (super.balance >= 2500) {
             super.fee = 0;
             return 0;
         }
 
-        if (this.execessWithdrawl) {
-            super.fee = 10;
-            return 10;
-        }
-        super.fee = 10;
-        return super.fee;
+
+        return 10;
     }
 
     /**
@@ -124,6 +125,7 @@ public class MoneyMarketAccount extends Savings{
 
         super.balance = super.rounder(super.balance);
         String balenceRounded = decimalFormat.format(super.balance);
+
         this.updateLoyalty();
         if (!super.closed) {
             if (super.isLoyal)
@@ -163,18 +165,17 @@ public class MoneyMarketAccount extends Savings{
      */
     @Override
     public void withdraw(double amount) {
-        double prev_balence = super.getBalance();
-        this.updateLoyalty();
-        super.withdraw(amount);
-        if (prev_balence != super.getBalance()) {
-            this.numWithdrawls++;
-            if (numWithdrawls > 3) {
-                execessWithdrawl = true;
-            }
-
-        }
-        this.updateLoyalty();
-        super.fee = this.fee();
+       if(!super.isSufficentFunds(amount)){
+           return;
+       }
+       this.numWithdrawls++;
+       if(this.numWithdrawls >3 ){
+            this.execessWithdrawl = true;
+            super.fee = this.fee();
+       }
+       super.balance -= amount;
+       super.balance = super.rounder(super.balance);
+       updateLoyalty();
 
     }
 
@@ -184,8 +185,14 @@ public class MoneyMarketAccount extends Savings{
      */
     @Override
     public String interestPreview() {
-        this.updateLoyalty();
-        return super.interestPreview();
+        DecimalFormat decimalFormat = new DecimalFormat("##,###,###,###.##");
+
+        decimalFormat.setMaximumFractionDigits(2);
+        decimalFormat.setMinimumFractionDigits(2);
+        String acct = this.toString();
+        super.fee = this.fee();
+        return acct + "::fee $" + decimalFormat.format(super.fee) + "::monthly interest $" +
+                decimalFormat.format(this.monthlyInterest());
     }
 
     /**
